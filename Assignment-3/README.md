@@ -63,7 +63,7 @@ curl -X POST http://localhost:5000/api/users/login
 
 ## Get All users
 
-![Screenshot](./screenshots/getAllUsers.png)
+![Screenshot](./screenshots/getAllUser.png)
 
 ## Create Post
 
