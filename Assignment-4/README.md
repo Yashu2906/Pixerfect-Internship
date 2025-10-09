@@ -5,20 +5,9 @@ It allows users to register, log in, create, edit, and delete blog posts — wit
 
 ---
 
-blog-app/
-├── Assignment-3/
-│ ├── models/
-│ ├── routes/
-│ ├── controllers/
-│ ├── server.js
-│ └── .env
-└── Assignment-2/simple-react-blog-app
-├── src/
-│ ├── components/
-│ ├── pages/
-│ ├── api/
-│ └── App.jsx
-└── vite.config.js
+## Project Structure
+
+![Screenshot](./screenshots/folderstructure.png)
 
 ## 🚀 Features
 
