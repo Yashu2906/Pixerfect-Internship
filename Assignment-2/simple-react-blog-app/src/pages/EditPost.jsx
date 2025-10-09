@@ -1,20 +1,37 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import PostForm from "../Components/PostForm";
+import api from "../api";
 
-export default function EditPost({ posts, setPosts }) {
+export default function EditPost({ refreshPosts }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = posts[id];
+  const [post, setPost] = useState(null);
 
-  if (!post) return <p>Post not found.</p>;
+  useEffect(() => {
+    fetchPost();
+  }, [id]);
 
-  const updatePost = (updatedPost) => {
-    const newPosts = posts.map((p, i) =>
-      i === parseInt(id) ? updatedPost : p
-    );
-    setPosts(newPosts);
-    navigate(`/post/${id}`);
+  const fetchPost = async () => {
+    try {
+      const res = await api.get(`/posts/${id}`);
+      setPost(res.data);
+    } catch (err) {
+      console.error("Error loading post:", err);
+    }
   };
+
+  const updatePost = async (updatedPost) => {
+    try {
+      await api.put(`/posts/${id}`, updatedPost);
+      await refreshPosts();
+      navigate(`/post/${id}`);
+    } catch (err) {
+      console.error("Error updating post:", err);
+    }
+  };
+
+  if (!post) return <p>Loading...</p>;
 
   return (
     <div>

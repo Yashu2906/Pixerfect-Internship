@@ -1,19 +1,38 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../api";
 
-export default function PostDetail({ posts, setPosts }) {
+export default function PostDetail({ refreshPosts }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = posts[id];
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    fetchPost();
+  }, [id]);
+
+  const fetchPost = async () => {
+    try {
+      const res = await api.get(`/posts/${id}`);
+      setPost(res.data);
+    } catch (err) {
+      console.error("Error fetching post:", err);
+    }
+  };
+
+  const deletePost = async () => {
+    try {
+      await api.delete(`/posts/${id}`);
+      await refreshPosts();
+      navigate("/");
+    } catch (err) {
+      console.error("Error deleting post:", err);
+    }
+  };
 
   if (!post) {
-    return <p className="text-red-500">Post not found.</p>;
+    return <p className="text-red-500">Loading...</p>;
   }
-
-  const deletePost = () => {
-    const updatedPosts = posts.filter((_, i) => i !== parseInt(id));
-    setPosts(updatedPosts);
-    navigate("/");
-  };
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6">

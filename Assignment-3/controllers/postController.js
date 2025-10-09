@@ -1,49 +1,87 @@
 const Post = require("../models/Post");
 
-// Create post
+// ✅ Create a new post
 exports.createPost = async (req, res) => {
   try {
-    const post = await Post.create({ ...req.body, author: req.body.author });
-    res.status(201).json(post);
+    const { title, content, author } = req.body;
+
+    if (!title || !content || !author) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const post = await Post.create({ title, content, author });
+    const populatedPost = await post.populate("author", "name email");
+
+    res.status(201).json(populatedPost);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Create Post Error:", error.message);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
-// Get all posts
+// ✅ Get all posts
 exports.getPosts = async (req, res) => {
-  const posts = await Post.find().populate("author", "name email");
-  res.json(posts);
+  try {
+    const posts = await Post.find().populate("author", "name email");
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Get Posts Error:", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
-// Get posts by user
+// ✅ Get posts by a specific user
 exports.getPostsByUser = async (req, res) => {
-  const posts = await Post.find({ author: req.params.userId }).populate(
-    "author",
-    "name email"
-  );
-  res.json(posts);
+  try {
+    const posts = await Post.find({ author: req.params.userId }).populate(
+      "author",
+      "name email"
+    );
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Get Posts By User Error:", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
-// Get single post
+// ✅ Get single post by ID
 exports.getPostById = async (req, res) => {
-  const post = await Post.findById(req.params.id).populate(
-    "author",
-    "name email"
-  );
-  res.json(post);
+  try {
+    const post = await Post.findById(req.params.id).populate(
+      "author",
+      "name email"
+    );
+    if (!post) return res.status(404).json({ message: "Post not found" });
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("Get Post Error:", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
-// Update post
+// ✅ Update a post
 exports.updatePost = async (req, res) => {
-  const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  res.json(post);
+  try {
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    }).populate("author", "name email");
+
+    if (!post) return res.status(404).json({ message: "Post not found" });
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("Update Post Error:", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
-// Delete post
+// ✅ Delete a post
 exports.deletePost = async (req, res) => {
-  await Post.findByIdAndDelete(req.params.id);
-  res.json({ message: "Post deleted" });
+  try {
+    const post = await Post.findByIdAndDelete(req.params.id);
+    if (!post) return res.status(404).json({ message: "Post not found" });
+    res.status(200).json({ message: "Post deleted" });
+  } catch (error) {
+    console.error("Delete Post Error:", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
