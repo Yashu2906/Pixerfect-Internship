@@ -7,6 +7,16 @@ It allows users to register, log in, create, edit, and delete blog posts — wit
 
 # Assignment-2/Simple-react-blog-app(frontend) + Assignment-3(backend)
 
+## 🌍 Live Demo
+
+### 🚀 Frontend (React App)
+
+**Live URL:** [blog-app-gamma-snowy.vercel.app](https://your-frontend.vercel.app)
+
+### ⚙️ Backend (Express + MongoDB API)
+
+**Live API URL:** [https://your-backend.onrender.com](https://your-backend.onrender.com)
+
 ## 🚀 Features
 
 ### 👤 Authentication
@@ -46,7 +56,7 @@ It allows users to register, log in, create, edit, and delete blog posts — wit
 
 ### 1️⃣ Clone the repository
 
-- git clone https://github.com/yourusername/blog-app.git
+- git clone https://github.com/Yashu2906/blog-app.git
 - cd blog-app
 
 ### 2️⃣ Backend Setup (Assignment-3)
