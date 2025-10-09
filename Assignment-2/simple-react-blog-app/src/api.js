@@ -2,10 +2,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://pixerfect-internship.vercel.app/",
+  baseURL: "https://pixerfect-internship.vercel.app/api", // ✅ add /api
 });
 
-// Add token to headers if logged in
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {

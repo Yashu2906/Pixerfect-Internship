@@ -8,23 +8,23 @@ const app = express();
 
 // ✅ Allowed frontend origins
 const allowedOrigins = [
-  "http://localhost:5000", // your local React dev server (Vite)
-  "https://pixerfect-internship-yg5t.vercel.app/", // your deployed frontend
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://pixerfect-internship-yg5t-bqxxcbaxe.vercel.app",
 ];
 
 // ✅ Configure CORS
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps, Postman)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
       } else {
-        return callback(new Error("Not allowed by CORS"));
+        console.log("❌ Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, // allows cookies / auth headers
+    credentials: true,
   })
 );
 
