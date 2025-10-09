@@ -6,24 +6,14 @@ const cors = require("cors");
 dotenv.config();
 const app = express();
 
-// ✅ Allowed frontend origins
 const allowedOrigins = [
+  "https://blog-frontend.vercel.app",
   "http://localhost:5173",
-  "http://localhost:3000",
-  "https://pixerfect-internship-yg5t-bqxxcbaxe.vercel.app",
 ];
 
-// ✅ Configure CORS
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.log("❌ Blocked by CORS:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: allowedOrigins,
     credentials: true,
   })
 );
