@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  "https://blog-frontend.vercel.app",
+  "https://blogfrontend-opal.vercel.app/",
   "http://localhost:5173",
 ];
 
