@@ -1,4 +1,3 @@
-// src/pages/Register.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api";
@@ -12,18 +11,29 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError(""); // Clear old error
     try {
       await api.post("/users/register", { name, email, password });
-      navigate("/login");
+      navigate("/"); // ✅ redirect to home if successful
     } catch (err) {
-      setError("Registration failed. Try again.");
+      // Extract backend message safely
+      const message =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        "Registration failed. Please try again.";
+      setError(message);
     }
   };
 
   return (
     <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow">
       <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+
+      {/* ✅ Show backend error */}
+      {error && (
+        <p className="text-red-500 mb-4 text-center font-medium">{error}</p>
+      )}
+
       <form onSubmit={handleRegister} className="space-y-4">
         <input
           type="text"
@@ -49,6 +59,7 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700"
           type="submit"
@@ -56,6 +67,7 @@ export default function Register() {
           Register
         </button>
       </form>
+
       <p className="text-sm text-gray-500 mt-4 text-center">
         Already have an account?{" "}
         <Link to="/login" className="text-blue-600 hover:underline">

@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://pixerfect-internship.vercel.app/api", // ✅ add /api
+  baseURL: "blog-backend-zeta-blond.vercel.app", // ✅ add /api
 });
 
 api.interceptors.request.use((config) => {

@@ -10,9 +10,7 @@ exports.createPost = async (req, res) => {
     }
 
     const post = await Post.create({ title, content, author });
-    const populatedPost = await post.populate("author", "name email");
-
-    res.status(201).json(populatedPost);
+    res.status(201).json(post);
   } catch (error) {
     console.error("Create Post Error:", error.message);
     res.status(500).json({ message: "Server Error" });
@@ -22,7 +20,7 @@ exports.createPost = async (req, res) => {
 // ✅ Get all posts
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("author", "name email");
+    const posts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json(posts);
   } catch (error) {
     console.error("Get Posts Error:", error.message);
@@ -33,10 +31,9 @@ exports.getPosts = async (req, res) => {
 // ✅ Get posts by a specific user
 exports.getPostsByUser = async (req, res) => {
   try {
-    const posts = await Post.find({ author: req.params.userId }).populate(
-      "author",
-      "name email"
-    );
+    const posts = await Post.find({ author: req.params.userId }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(posts);
   } catch (error) {
     console.error("Get Posts By User Error:", error.message);
@@ -47,10 +44,7 @@ exports.getPostsByUser = async (req, res) => {
 // ✅ Get single post by ID
 exports.getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id).populate(
-      "author",
-      "name email"
-    );
+    const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).json({ message: "Post not found" });
     res.status(200).json(post);
   } catch (error) {
@@ -64,8 +58,7 @@ exports.updatePost = async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-    }).populate("author", "name email");
-
+    });
     if (!post) return res.status(404).json({ message: "Post not found" });
     res.status(200).json(post);
   } catch (error) {
