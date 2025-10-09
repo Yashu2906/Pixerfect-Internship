@@ -5,18 +5,7 @@ const cors = require("cors");
 
 dotenv.config();
 const app = express();
-
-const allowedOrigins = [
-  "https://blogfrontend-opal.vercel.app/",
-  "http://localhost:5173",
-];
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
