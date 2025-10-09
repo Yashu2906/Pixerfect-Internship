@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "blog-backend-zeta-blond.vercel.app/api",
+  baseURL: "https://blog-backend-zeta-blond.vercel.app/api",
 });
 
 api.interceptors.request.use((config) => {
