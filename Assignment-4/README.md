@@ -5,6 +5,8 @@ It allows users to register, log in, create, edit, and delete blog posts — wit
 
 ---
 
+# Assignment-2/Simple-react-blog-app(frontend) + Assignment-3(backend)
+
 ## 🚀 Features
 
 ### 👤 Authentication
