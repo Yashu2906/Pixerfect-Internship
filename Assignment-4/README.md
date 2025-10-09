@@ -5,10 +5,6 @@ It allows users to register, log in, create, edit, and delete blog posts — wit
 
 ---
 
-## Project Structure
-
-![Screenshot](./screenshots/folderstructure.png)
-
 ## 🚀 Features
 
 ### 👤 Authentication
@@ -44,7 +40,32 @@ It allows users to register, log in, create, edit, and delete blog posts — wit
 
 ---
 
-🔐 Authentication Flow
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+
+- git clone https://github.com/yourusername/blog-app.git
+- cd blog-app
+
+### 2️⃣ Backend Setup (Assignment-3)
+
+- cd Assignment-3
+- npm install
+
+- Run the backend server:
+
+- node server.js
+
+### 3️⃣ Frontend Setup (Assignment-2)
+
+- cd ../Assignment-2/simple-react-blog-app
+- npm install
+- npm run dev
+
+- Frontend will run at:
+- 👉 http://localhost:5173
+
+## 🔐 Authentication Flow
 
 - User registers or logs in to get a JWT token.
 - Token is stored in local storage.
