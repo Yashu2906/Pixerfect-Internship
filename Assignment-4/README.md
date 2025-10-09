@@ -11,11 +11,11 @@ It allows users to register, log in, create, edit, and delete blog posts — wit
 
 ### 🚀 Frontend (React App)
 
-**Live URL:** [blog-app-gamma-snowy.vercel.app](https://your-frontend.vercel.app)
+**Live URL:** [[blog-app-gamma-snowy.vercel.app](https://blog-app-gamma-snowy.vercel.app/)]
 
 ### ⚙️ Backend (Express + MongoDB API)
 
-**Live API URL:** [https://your-backend.onrender.com](https://your-backend.onrender.com)
+**Live API URL:** [https://blog-backend-t9or.onrender.com]
 
 ## 🚀 Features
 
